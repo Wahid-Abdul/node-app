@@ -28,10 +28,7 @@
     <!-- <p > </p> -->
     <button type="" onclick="sendMessage()">SUBMIT</button>
 
-    <form action="http://localhost:3000/hello" method="POST" target="_blank">
-        First Name: <input type="text" name="first_name"> <br> Last Name: <input type="text" name="last_name">
-        <input type="submit" value="Submit">
-    </form>
+
 
 
 
@@ -41,26 +38,17 @@
 <script>
     function sendMessage() {
         var myvar = document.getElementById("data").value
-            /*  $.post("http://localhost:3000/hello", {
-                      name: myvar
-                  },
-                  function(data, status) {
-                      alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
-                  });*/
+
 
         var xhttp = new XMLHttpRequest();
         xhttp.open("POST", "http://localhost:3000/hello", true);
-        //xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send({
-            'name': "myvar"
-        });
+        // xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhttp.send(JSON.stringify({
+            kakakak: myvar,
+            'name': 'rax'
+        }));
     }
-
-
-    /*$.get("http://localhost:3000/hello",
-        function(data, status) {
-            alert("Data: " + data + "\nStatus: " + status);
-        });*/
 </script>
 
 </html>
