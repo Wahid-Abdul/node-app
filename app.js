@@ -1,6 +1,6 @@
 var express = require('express');
 var mongoose = require("mongoose");
-var bodyParser     =        require("body-parser");
+var bodyParser = require("body-parser");
 
 
 
@@ -26,8 +26,8 @@ app.get('/hello', function(req, res){
 });
 
 app.post('/hello',function(req,res){
-    res.send(res.body);
-    console.log( res.body)    
+    (res.send(res.body));
+    console.log( req.body)    
 
 });
 

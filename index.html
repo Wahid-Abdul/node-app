@@ -27,6 +27,16 @@
     <input type="" name="" value="" id="data">
     <!-- <p > </p> -->
     <button type="" onclick="sendMessage()">SUBMIT</button>
+
+    <form action="http://localhost:3000/hello" method="POST" target="_blank">
+        First Name: <input type="text" name="first_name"> <br> Last Name: <input type="text" name="last_name">
+        <input type="submit" value="Submit">
+    </form>
+
+
+
+
+
 </body>
 <script>
     function sendMessage() {
@@ -42,7 +52,7 @@
         xhttp.open("POST", "http://localhost:3000/hello", true);
         //xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send({
-            'name': myvar
+            'name': "myvar"
         });
     }
 
