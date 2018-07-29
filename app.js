@@ -1,6 +1,6 @@
 var express = require('express');
 var bodyParser = require("body-parser");
-var MongoClient = require('mongodb').MongoClient;
+// var MongoClient = require('mongodb').MongoClient;
 
 var app = express();
 
@@ -9,31 +9,24 @@ app.use(bodyParser.json());
 
 var url = "mongodb://localhost:27017/mydb";
 
-MongoClient.connect(url, { useNewUrlParser: true } , function(err, db) {
-      if (err) throw err;
-      console.log("Database created!");
+//remove
+// MongoClient.connect(url, { useNewUrlParser: true } , function(err, db) {
+//       if (err) throw err;
+//       console.log("Database created!");
 
-      var dbo  =  db.db("firsty")
-      dbo.createCollection("names",function (err,res) {
-        if(err) throw err;
-        console.log("\n\n\n\n\nCollection created"+    (res));
-        var myobj = { name: "Company Inc", address: "Highway 37" };
+//       var dbo  =  db.db("firsty")
+//       dbo.createCollection("names",function (err,res) {
+//         if(err) throw err;
+//         console.log("\n\n\n\n\nCollection created"+    (res));
+//         var myobj = { name: "Company Inc", address: "Highway 37" };
        
-      });
-      db.close();
-     
-    });
+//       });
+//       db.close();
+//      
+//     });
 
 
-    MongoClient.connect(url, function(err, db) {
-        if (err) throw err;
-        var dbo = db.db("firsty");
-        dbo.collection("names").findOne({}, function(err, result) {
-          if (err) throw err;
-          console.log(result);
-          db.close();
-        });
-      });
+
     
 
 
@@ -56,16 +49,18 @@ app.get('/hello', function(req, res){
     //         });
     //       });
 
-          MongoClient.connect(url, function(err, db) {
-            if (err) throw err;
-            var dbo = db.db("firsty");
-            dbo.collection("names").find({}).toArray( function(err, result) {
-              if (err) throw err;
-              console.log("result    :"+result);
-              res.send(result  );
-              db.close();
-            });
-          });
+
+    //remove
+          // MongoClient.connect(url, function(err, db) {
+          //   if (err) throw err;
+          //   var dbo = db.db("firsty");
+          //   dbo.collection("names").find({}).toArray( function(err, result) {
+          //     if (err) throw err;
+          //     console.log("result    :"+result);
+          //     res.send(result  );
+          //     db.close();
+          //   });
+          // });
 
 
 });
