@@ -1,7 +1,6 @@
 {
-    "name": "node-app",
+    "name": "app",
     "version": "1.0.0",
-    "description": "",
     "main": "app.js",
     "dependencies": {
         "body-parser": "^1.18.3",
@@ -18,5 +17,14 @@
         "npm": "5.7.1"
     },
     "author": "wahid_abdul",
-    "license": "ISC"
+    "license": "ISC",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Wahid-Abdul/node-app.git"
+    },
+    "bugs": {
+        "url": "https://github.com/Wahid-Abdul/node-app/issues"
+    },
+    "homepage": "https://github.com/Wahid-Abdul/node-app#readme",
+    "description": ""
 }
