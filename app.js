@@ -18,17 +18,23 @@ MongoClient.connect(url, { useNewUrlParser: true } , function(err, db) {
         if(err) throw err;
         console.log("\n\n\n\n\nCollection created"+    (res));
         var myobj = { name: "Company Inc", address: "Highway 37" };
-        dbo.collection("names").insertOne(myobj, function(err, res) {
-            if (err) throw err;
-            console.log("1 document inserted");
-            db.close();
-        });
+       
       });
-
+      db.close();
      
     });
 
 
+    MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db("firsty");
+        dbo.collection("names").findOne({}, function(err, result) {
+          if (err) throw err;
+          console.log(result);
+          db.close();
+        });
+      });
+    
 
 
 
@@ -37,14 +43,55 @@ app.get('/', function(req, res){
  });
  
 app.get('/hello', function(req, res){
-    res.send({'name':'abdul wahid'});
+    // res.send({'name':'abdul wahid'});
     console.log("REQ:"+req[0])
+    // MongoClient.connect(url, function(err, db) {
+    //         if (err) throw err;
+    //         var dbo = db.db("mydb");
+    //         dbo.collection("names").findOne({ useNewUrlParser: true } , function(err, result) {
+    //           if (err) throw err;
+    //           console.log("sending response ......  "+  result);
+    //           res.send({'name':'abdul wahid'});
+    //           db.close();
+    //         });
+    //       });
+
+          MongoClient.connect(url, function(err, db) {
+            if (err) throw err;
+            var dbo = db.db("firsty");
+            dbo.collection("names").find({}).toArray( function(err, result) {
+              if (err) throw err;
+              console.log("result    :"+result);
+              res.send(result  );
+              db.close();
+            });
+          });
+
+
 });
 
 app.post('/hello',function(req,res){
     console.log( req.body)    
 
     res.send(req.body);
+
+
+    MongoClient.connect(url, { useNewUrlParser: true } , function(err, db) {
+      if (err) throw err;
+      console.log("Database created!");
+
+        var dbo  =  db.db("firsty")
+        myobj = req.body
+        dbo.collection("names").insertOne(myobj, function(err, res) {
+            if (err) throw err;
+            console.log("1 document inserted");
+            db.close();
+        });
+
+     
+    });
+    
+
 
 });
 

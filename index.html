@@ -28,6 +28,7 @@
     <!-- <p > </p> -->
     <button type="" onclick="sendMessage()">SUBMIT</button>
 
+    <button type="" onclick="getMessage()">get msg</button>
 
 
 
@@ -45,9 +46,26 @@
         // xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         xhttp.send(JSON.stringify({
-            kakakak: myvar,
-            'name': 'rax'
+
+            name: myvar
         }));
+    }
+
+    function getMessage() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            //alert(this.responseText);
+            //console.log("response text" + this.responseText)
+
+            if (this.readyState == 4 && this.status == 200) {
+                //alert(this.responseText);
+                console.log("response text" + this.responseText)
+            }
+            console.log('inside state chenage')
+        };
+        xhttp.open("GET", "http://localhost:3000/hello", true);
+        xhttp.send();
+        //alert(xhttp.responseText);
     }
 </script>
 
