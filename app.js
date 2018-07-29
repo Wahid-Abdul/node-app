@@ -7,7 +7,7 @@ var app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// var url = "mongodb://localhost:27017/mydb";
+// var url = "mongodb://loca  lhost:27017/mydb";
 
 //remove
 // MongoClient.connect(url, { useNewUrlParser: true } , function(err, db) {
@@ -90,4 +90,10 @@ app.post('/hello',function(req,res){
 
 });
 
-app.listen(3000);
+const host = '0.0.0.0';
+const port = process.env.PORT || 3000;
+
+
+app.listen(port, host, function() {
+  console.log("Server started.......");
+});
