@@ -86,9 +86,25 @@ app.post('/hello',function(req,res){
      
     });
     
-
-
 });
+
+app.post('/clear',function(req,res){
+  console.log( "clear function invoked")    
+
+  MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("firsty");
+    dbo.collection("names").drop(function(err, delOK) {
+      if (err) throw err;
+      if (delOK) console.log("Collection deleted");
+      db.close();
+    });
+  });
+
+
+  res.send("cleared");
+});
+
 
 const host = '0.0.0.0';
 const port = process.env.PORT || 3000;
