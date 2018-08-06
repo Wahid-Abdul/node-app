@@ -2,7 +2,7 @@ var express = require('express');
 var bodyParser = require("body-parser");
 var MongoClient = require('mongodb').MongoClient;
 var weather = require('openweather-apis');
-
+var out = require('./outside.js')
 
 var app = express();
 
@@ -19,10 +19,7 @@ weather.setLang('it');
     // Swedish - sv (or se), Chinese Tra - zh_tw, Chinese Sim - zh (or zh_cn),
     // Turkish - tr, Croatian - hr, Catalan - ca
  
- 
-    // set city by name
-    weather.setCity('Delhi');
- 	
+	
  
     // 'metric'  'internal'  'imperial'
  	weather.setUnits('metric');
@@ -59,22 +56,19 @@ app.get('/', function(req, res){
  });
  
 app.get('/hello', function(req, res){ 
-
+    console.log(out.wahid())
     console.log("REQ:"+req[0])
   
-
-
-    //remove
-          MongoClient.connect(url, function(err, db) {
-            if (err) throw err;
-            var dbo = db.db("firsty");
-            dbo.collection("names").find({}).toArray( function(err, result) {
-              if (err) throw err;
-              console.log("result    :"+result);
-              res.send(result  );
-              db.close();
-            });
-          });
+    MongoClient.connect(url, function(err, db) {
+      if (err) throw err;
+      var dbo = db.db("firsty");
+      dbo.collection("names").find({}).toArray( function(err, result) {
+        if (err) throw err;
+        console.log("result    :"+result);
+        res.send(result  );
+        db.close();
+      });
+    });
 
 
 });
