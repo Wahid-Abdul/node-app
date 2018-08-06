@@ -1,6 +1,8 @@
 var express = require('express');
 var bodyParser = require("body-parser");
 var MongoClient = require('mongodb').MongoClient;
+var weather = require('openweather-apis');
+
 
 var app = express();
 
@@ -8,6 +10,27 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 var url = "mongodb://localhost:27017/mydb";
+
+
+weather.setLang('it');
+    // English - en, Russian - ru, Italian - it, Spanish - es (or sp),
+    // Ukrainian - uk (or ua), German - de, Portuguese - pt,Romanian - ro,
+    // Polish - pl, Finnish - fi, Dutch - nl, French - fr, Bulgarian - bg,
+    // Swedish - sv (or se), Chinese Tra - zh_tw, Chinese Sim - zh (or zh_cn),
+    // Turkish - tr, Croatian - hr, Catalan - ca
+ 
+ 
+    // set city by name
+    weather.setCity('Delhi');
+ 	
+ 
+    // 'metric'  'internal'  'imperial'
+ 	weather.setUnits('metric');
+ 
+    // check http://openweathermap.org/appid#get for get the APPID
+ 	weather.setAPPID("fb732494742712a14bbfcb6123d20925");
+
+
 
 //remove
 MongoClient.connect(url, { useNewUrlParser: true } , function(err, db) {
@@ -35,19 +58,10 @@ app.get('/', function(req, res){
     res.send("Base URl");
  });
  
-app.get('/hello', function(req, res){
-    // res.send({'name':'abdul wahid'});
+app.get('/hello', function(req, res){ 
+
     console.log("REQ:"+req[0])
-    // MongoClient.connect(url, function(err, db) {
-    //         if (err) throw err;
-    //         var dbo = db.db("mydb");
-    //         dbo.collection("names").findOne({ useNewUrlParser: true } , function(err, result) {
-    //           if (err) throw err;
-    //           console.log("sending response ......  "+  result);
-    //           res.send({'name':'abdul wahid'});
-    //           db.close();
-    //         });
-    //       });
+  
 
 
     //remove
@@ -86,6 +100,15 @@ app.post('/hello',function(req,res){
      
     });
     
+});
+
+app.post('/getWeather',function(req,res){
+  weather.getAllWeather(function(err, JSONObj){
+    console.log(JSONObj);
+    res.send(JSONObj)
+  });
+  // res.send("default value")
+
 });
 
 app.post('/clear',function(req,res){

@@ -30,6 +30,9 @@
     <button type="" onclick="getMessage()">get msg</button>
     <br><br>
     <button type="" onclick="clearData()">Clear database</button>
+    <button type="" onclick="getWeather()">Get Weather</button>
+
+
 
 
 
@@ -51,6 +54,26 @@
             name: myvar
         }));
     }
+
+    function getWeather() {
+
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("POST", "http://localhost:3000/getWeather", true);
+        xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhttp.send(JSON.stringify({
+            name: "valieeeeee"
+        }));
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                alert(this.responseText);
+
+            }
+        };
+
+    }
+
+
 
     function getMessage() {
         var xhttp = new XMLHttpRequest();
@@ -79,4 +102,4 @@
     }
 </script>
 
-</html>s
+</html>
