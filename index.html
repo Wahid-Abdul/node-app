@@ -13,14 +13,11 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="">
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
 
 </head>
 
 <body>
-    <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+
     <p id="demo"></p>
     <script src="" async defer></script>
     <input type="" name="" value="" id="data">
@@ -28,10 +25,19 @@
     <button type="" onclick="sendMessage()">SUBMIT</button>
 
     <button type="" onclick="getMessage()">get msg</button>
+    <br>
     <br><br>
     <button type="" onclick="clearData()">Clear database</button>
+
+    <br>
+    <br><br>
+    <input type="" name="" value="" id="cityName" placeholder="Enter city name">
+
     <button type="" onclick="getWeather()">Get Weather</button>
 
+    <div>
+        Temperature: <span id="temperature"></span> Pressure : <span id="pressure"></span>
+    </div>
 
 
 
@@ -62,11 +68,13 @@
         xhttp.open("POST", "http://localhost:3000/getWeather", true);
         xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         xhttp.send(JSON.stringify({
-            name: "valieeeeee"
+            name: document.getElementById("cityName").value
         }));
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                alert(this.responseText);
+                console.log(this.responseText);
+                document.getElementById('temperature').innerHTML = JSON.parse(this.responseText).main.temp;
+                document.getElementById('pressure').innerHTML = JSON.parse(this.responseText).main.pressure;
 
             }
         };

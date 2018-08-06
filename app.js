@@ -103,11 +103,14 @@ app.post('/hello',function(req,res){
 });
 
 app.post('/getWeather',function(req,res){
+
+
+  weather.setCity(req.body.name);
+
   weather.getAllWeather(function(err, JSONObj){
     console.log(JSONObj);
     res.send(JSONObj)
   });
-  // res.send("default value")
 
 });
 
