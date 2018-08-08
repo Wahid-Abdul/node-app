@@ -1,8 +1,9 @@
 var express = require('express');
 var bodyParser = require("body-parser");
 var MongoClient = require('mongodb').MongoClient;
-var weather = require('openweather-apis');
 var out = require('./outside.js')
+// var async = require("async");
+
 
 var app = express();
 
@@ -10,22 +11,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 var url = "mongodb://localhost:27017/mydb";
-
-
-weather.setLang('it');
-    // English - en, Russian - ru, Italian - it, Spanish - es (or sp),
-    // Ukrainian - uk (or ua), German - de, Portuguese - pt,Romanian - ro,
-    // Polish - pl, Finnish - fi, Dutch - nl, French - fr, Bulgarian - bg,
-    // Swedish - sv (or se), Chinese Tra - zh_tw, Chinese Sim - zh (or zh_cn),
-    // Turkish - tr, Croatian - hr, Catalan - ca
- 
-	
- 
-    // 'metric'  'internal'  'imperial'
- 	weather.setUnits('metric');
- 
-    // check http://openweathermap.org/appid#get for get the APPID
- 	weather.setAPPID("fb732494742712a14bbfcb6123d20925");
 
 
 
@@ -54,10 +39,13 @@ MongoClient.connect(url, { useNewUrlParser: true } , function(err, db) {
 app.get('/', function(req, res){
     res.send("Base URl");
  });
- 
+
+
+
 app.get('/hello', function(req, res){ 
-    console.log(out.wahid())
-    console.log("REQ:"+req[0])
+
+ 
+ console.log("REQ:"+req[0])
   
     MongoClient.connect(url, function(err, db) {
       if (err) throw err;
@@ -99,12 +87,9 @@ app.post('/hello',function(req,res){
 app.post('/getWeather',function(req,res){
 
 
-  weather.setCity(req.body.name);
 
-  weather.getAllWeather(function(err, JSONObj){
-    console.log(JSONObj);
-    res.send(JSONObj)
-  });
+  out.wahid(req.body.name,function(result){console.log("\n\n\n\n\n\n\n\n"+result+"\n\n\n\n\n\n\n");res.send(result)});
+
 
 });
 
